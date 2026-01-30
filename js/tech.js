@@ -6161,7 +6161,6 @@ const tech = {
       name: "rotary cannon",
       description: `<strong>nail gun</strong> has increased muzzle <strong class="color-speed">speed</strong>,<br>maximum <em>fire rate</em>, <strong>accuracy</strong>, and <strong>recoil</strong>`,
       isGunTech: true,
-      isCorrupted: true,
       maxCount: 1,
       count: 0,
       frequency: 2,

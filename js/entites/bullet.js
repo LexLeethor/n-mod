@@ -467,28 +467,16 @@ const b = {
             // const mitigate = Math.min(1, Math.max(1 - m.energy * 0.5, 0))
             m.energy -= 0.05
             knock = Vector.mult(Vector.normalise(sub), -0.6 * player.mass * Math.max(0, Math.min(0.15 - 0.002 * player.speed, 0.15)));
-            if (m.fieldMode === 0 || m.fieldMode === 13) {
-              knock.x *= Math.pow(1.25, m.coupling / -16);
-              knock.y *= Math.pow(1.25, m.coupling / -16);
-            }
             player.force.x = knock.x; // not +=  so crazy forces can't build up with MIRV
             player.force.y = knock.y - 0.3; //some extra vertical kick 
           } else {
             m.takeDamage(harm * spawn.dmgToPlayerByLevelsCleared());
             knock = Vector.mult(Vector.normalise(sub), -Math.sqrt(dmg) * player.mass * 0.013);
-            if (m.fieldMode === 0 || m.fieldMode === 13) {
-              knock.x *= Math.pow(1.25, m.coupling / -16);
-              knock.y *= Math.pow(1.25, m.coupling / -16);
-            }
             player.force.x += knock.x;
             player.force.y += knock.y;
           }
         } else if (dist < alertRange) {
           knock = Vector.mult(Vector.normalise(sub), -Math.sqrt(dmg) * player.mass * 0.005);
-          if (m.fieldMode === 0 || m.fieldMode === 13) {
-            knock.x *= Math.pow(1.25, m.coupling / -16);
-            knock.y *= Math.pow(1.25, m.coupling / -16);
-          }
           player.force.x += knock.x;
           player.force.y += knock.y;
         }
@@ -2063,11 +2051,7 @@ const b = {
           // }
           //recoil on catching
           const momentum = Vector.mult(Vector.sub(this.velocity, player.velocity), (m.crouch ? 0.0001 : 0.0002))
-          if (m.fieldMode === 0 || m.fieldMode === 13) {
-            momentum.x *= Math.pow(1.25, m.coupling / -16);
-            momentum.y *= Math.pow(1.25, m.coupling / -16);
-          }
-          player.force.x += momentum.x
+          layer.force.x += momentum.x
           player.force.y += momentum.y
           // refund ammo
           if (isReturnAmmo) {
@@ -2131,10 +2115,6 @@ const b = {
               Matter.Sleeping.set(this, false)
               this.endCycle = simulation.cycle + 240
               const momentum = Vector.mult(Vector.sub(this.velocity, player.velocity), (m.crouch ? 0.00015 : 0.0003)) //recoil on jerking line
-              if (m.fieldMode === 0 || m.fieldMode === 13) {
-                momentum.x *= Math.pow(1.25, m.coupling / -16);
-                momentum.y *= Math.pow(1.25, m.coupling / -16);
-              }
               player.force.x += momentum.x
               player.force.y += momentum.y
               requestAnimationFrame(() => { //delay this for 1 cycle to get the proper hit graphics
@@ -6348,7 +6328,6 @@ const b = {
         if (m.onGround) {
           if (m.crouch) {
             const KNOCK = 0.006
-            if (m.fieldMode === 0 || m.fieldMode === 13) KNOCK *= Math.pow(1.25, m.coupling / -16);
             player.force.x -= KNOCK * Math.cos(m.angle)
             player.force.y -= KNOCK * Math.sin(m.angle) //reduce knock back in vertical direction to stop super jumps
             Matter.Body.setVelocity(player, {
@@ -6357,7 +6336,6 @@ const b = {
             });
           } else {
             const KNOCK = 0.03
-            if (m.fieldMode === 0 || m.fieldMode === 13) KNOCK *= Math.pow(1.25, m.coupling / -16);
             player.force.x -= KNOCK * Math.cos(m.angle)
             player.force.y -= KNOCK * Math.sin(m.angle) //reduce knock back in vertical direction to stop super jumps
             Matter.Body.setVelocity(player, {
@@ -6368,10 +6346,6 @@ const b = {
         } else {
           let xKnock = 0.06 * Math.cos(m.angle) * Math.min(1, 3 / (0.1 + Math.abs(player.velocity.x)))
           let yKnock = 0.006 * Math.sin(m.angle) //reduce knock back in vertical direction to stop super jumps
-          if (m.fieldMode === 0 || m.fieldMode === 13) {
-            xKnock *= Math.pow(1.25, m.coupling / -16);
-            yKnock *= Math.pow(1.25, m.coupling / -16);
-          }
           player.force.x -= xKnock
           player.force.y -= yKnock
         }
@@ -6486,18 +6460,15 @@ const b = {
         if (m.onGround) {
           if (m.crouch) {
             const KNOCK = 0.01
-            if (m.fieldMode === 0 || m.fieldMode === 13) KNOCK *= Math.pow(1.25, m.coupling / -16);
             player.force.x -= KNOCK * Math.cos(m.angle)
             player.force.y -= KNOCK * Math.sin(m.angle) //reduce knock back in vertical direction to stop super jumps
           } else {
             const KNOCK = 0.02
-            if (m.fieldMode === 0 || m.fieldMode === 13) KNOCK *= Math.pow(1.25, m.coupling / -16);
             player.force.x -= KNOCK * Math.cos(m.angle)
             player.force.y -= KNOCK * Math.sin(m.angle) //reduce knock back in vertical direction to stop super jumps
           }
         } else {
           const KNOCK = 0.01
-          if (m.fieldMode === 0 || m.fieldMode === 13) KNOCK *= Math.pow(1.25, m.coupling / -16);
           player.force.x -= KNOCK * Math.cos(m.angle)
           player.force.y -= KNOCK * Math.sin(m.angle) * 0.5 //reduce knock back in vertical direction to stop super jumps    
         }
@@ -6594,10 +6565,6 @@ const b = {
         } else {
           let xKnock = 0.2 * Math.cos(m.angle) * Math.min(1, 3 / (0.1 + Math.abs(player.velocity.x)))
           let yKnock = 0.02 * Math.sin(m.angle) //reduce knock back in vertical direction to stop super jumps
-          if (m.fieldMode === 0 || m.fieldMode === 13) {
-            xKnock *= Math.pow(1.25, m.coupling / -16);
-            yKnock *= Math.pow(1.25, m.coupling / -16);
-          }
           player.force.x -= xKnock
           // player.force.x -= 0.06 * Math.cos(m.angle) * Math.min(1, 3 / (0.1 + Math.abs(player.velocity.x)))
 
@@ -6692,7 +6659,6 @@ const b = {
             if (tech.isShotgunImmune && m.immuneCycle < m.cycle + Math.floor(47 * b.fireCDscale)) m.immuneCycle = m.cycle + Math.floor(47 * b.fireCDscale); //player is immune to damage for 30 cycles
             knock = 0.1
           }
-          if (m.fieldMode === 0 || m.fieldMode === 13) knock *= Math.pow(1.25, m.coupling / -16);
           if (tech.isShotgunReversed) {
             player.force.x += 1.5 * knock * Math.cos(m.angle)
             player.force.y += 1.5 * knock * Math.sin(m.angle) - 3 * player.mass * simulation.g
@@ -8058,10 +8024,6 @@ const b = {
             }
 
             const recoil = Vector.mult(Vector.normalise(Vector.sub(where, m.pos)), m.crouch ? 0.03 : 0.06)
-            if (m.fieldMode === 0 || m.fieldMode === 13) {
-              recoil.x *= Math.pow(1.25, m.coupling / -16);
-              recoil.y *= Math.pow(1.25, m.coupling / -16);
-            }
             player.force.x -= recoil.x
             player.force.y -= recoil.y
             const harpoonSize = tech.isLargeHarpoon ? 1 + 0.07 * Math.sqrt(this.ammo) : 1
@@ -8259,10 +8221,6 @@ const b = {
         }
         m.fireCDcycle = m.cycle + 5 + 35 * b.fireCDscale * (tech.isBreakHarpoon ? 0.5 : 1) + 60 * (m.energy < 0.05) + tech.extraHarpoons // cool down is set when harpoon bullet returns to player
         const recoil = Vector.mult(Vector.normalise(Vector.sub(where, m.pos)), m.crouch ? 0.015 : 0.035)
-        if (m.fieldMode === 0 || m.fieldMode === 13) {
-          recoil.x *= Math.pow(1.25, m.coupling / -16);
-          recoil.y *= Math.pow(1.25, m.coupling / -16);
-        }
         player.force.x -= recoil.x
         player.force.y -= recoil.y
       },
