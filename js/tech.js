@@ -4946,7 +4946,8 @@ const tech = {
       name: "aberration",
       num: 22,
       descriptionFunction() {
-        return `set your <strong>top ${this.num}</strong> ${powerUps.orb.tech()} <strong class='color-choice'><span>ch</span><span>oi</span><span>ces</span></strong> to <em class='flicker'>0 frequency</em><br>spawn ${powerUps.orb.tech()} ${powerUps.orb.tech()}`
+        return `set your <strong>top ${this.num}</strong> ${powerUps.orb.tech()} <strong class='color-choice'><span>ch</span><span>oi</span><span>ces</span></strong> to <em class='flicker'>0 frequency</em>
+        <br>spawn${` ${powerUps.orb.tech()}`.repeat(5)}`
       },
       maxCount: 1,
       count: 0,
@@ -4982,7 +4983,7 @@ const tech = {
         simulation.inGameConsole(text);
 
         //spawn 2 tech
-        for (let i = 0; i < 2; i++) powerUps.spawn(m.pos.x + 60 * (Math.random() - 0.5), m.pos.y + 60 * (Math.random() - 0.5), "tech");
+        for (let i = 0; i < 5; i++) powerUps.spawn(m.pos.x + 60 * (Math.random() - 0.5), m.pos.y + 60 * (Math.random() - 0.5), "tech");
       },
       remove() { }
     },
