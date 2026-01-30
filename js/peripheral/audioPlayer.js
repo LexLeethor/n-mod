@@ -98,7 +98,7 @@ const audioPlayer = {
             } else if (name === 'Step') {
               listItem.src = `SFX/Footsteps/Footstep${Math.ceil(Math.random() * 6)}.mp3`
             } else if (name === 'Teleport') {
-              listItem.src = `SFX/Teleports/Teleport${Math.ceil(Math.random() * 3)}.mp3`
+              listItem.src = `SFX/Teleports/Teleport${Math.ceil(Math.random() * 2)}.mp3`
             }
             try {
               //simulation.inGameConsole(listItem.src);
