@@ -57,7 +57,8 @@ const cmdList = {
       `
     },
     help: {
-      checkSyntax(input){
+      checkSyntax(input) {
+        cmdConsole.params = input.split(/\s+/)
         if (cmdConsole.params.length < 2) {
           return [true, ""]
         } else {
@@ -88,6 +89,7 @@ const cmdList = {
     },
     spawn: {
       checkSyntax(input) {
+        cmdConsole.params = input.split(/\s+/)
         if (cmdConsole.params.length === 4) {
           return [true, ""]
         } else {
@@ -95,6 +97,7 @@ const cmdList = {
         }
       },
       effect(input) {
+        cmdConsole.params = input.split(/\s+/)
         let types = ["mob", "boss", "powerUp"], fullMobList = spawn.tier.flat(),
           fullBossList = spawn.bossTier.flat(), fullPowerUpList = [], what = cmdConsole.params[1],
           fullCatalog = [], reference = Object.entries(powerUps);
@@ -139,10 +142,11 @@ const cmdList = {
         }
       },
       description: `Spawns an entity at a given position.
-      <br><strong>SYNTAX:</strong> /spawn <em>&lt;type (mob|boss|powerUp)&gt; &lt;name&gt; &lt;position (x y)&gt;</em>`
+      <br><strong>SYNTAX:</strong> /spawn <em>&lt;type (mob|boss|powerUp)&gt; &lt;name&gt; &lt;where (x &amp; y)&gt;</em>`
     },
     give: {
       /* checkSyntax(input) {
+        cmdConsole.params = input.split(/\s+/)
         if ([2,3].includes(cmdConsole.params.length)) {
           return [true, ""]
         } else {
