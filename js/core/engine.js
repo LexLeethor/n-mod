@@ -119,10 +119,10 @@ function collisionChecks(event) {
             let dmg = Math.min(Math.max(0.025 * Math.sqrt(mob[k].mass), 0.05), 0.3) * mob[k].damageScale();
             mob[k].foundPlayer();
             if (tech.isRewindAvoidDeath && m.energy > 0.85 * Math.min(1, m.maxEnergy) && dmg > 0.01) { //CPT reversal runs in m.damage, but it stops the rest of the collision code here too
-              m.takeDamage(dmg);
+              if (tech.isFlipFlopOn || !tech.isFlipFlopHarm) m.takeDamage(dmg);
               return
             }
-            m.takeDamage(dmg); //normal damage
+            if (tech.isFlipFlopOn || !tech.isFlipFlopHarm) m.takeDamage(dmg); //normal damage
 
             if (tech.isCollisionRealitySwitch && m.alive) {
               m.switchWorlds("Hilbert space")

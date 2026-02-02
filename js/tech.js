@@ -3016,7 +3016,7 @@ const tech = {
       },
       requires: "flip-flop",
       effect() {
-        tech.isFlipFlopHarm = true //do you have this tech
+        tech.isFlipFlopHarm = true 
       },
       remove() {
         tech.isFlipFlopHarm = false
