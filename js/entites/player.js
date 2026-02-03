@@ -3671,9 +3671,10 @@ const m = {
           (powerUp[i].name !== "heal" || m.maxHealth - m.health > 0.01 || tech.isOverHeal)
         ) {
           powerUps.onPickUp(powerUp[i]);
+          let velMult = ((tech.recoilReduction || 0) > 0 ? 0.5 ** tech.recoilReduction : 1); //dynamical billiards reduces powerUp pickup recoil
           Matter.Body.setVelocity(player, { //player knock back, after grabbing power up
-            x: player.velocity.x + powerUp[i].velocity.x / player.mass * 4 * powerUp[i].mass,
-            y: player.velocity.y + powerUp[i].velocity.y / player.mass * 4 * powerUp[i].mass
+            x: player.velocity.x + powerUp[i].velocity.x / player.mass * 4 * powerUp[i].mass * velMult,
+            y: player.velocity.y + powerUp[i].velocity.y / player.mass * 4 * powerUp[i].mass * velMult
           });
           powerUp[i].effect();
           Matter.Composite.remove(engine.world, powerUp[i]);
@@ -3702,9 +3703,10 @@ const m = {
           (powerUp[i].name !== "heal" || m.maxHealth - m.health > 0.01 || tech.isOverHeal)
         ) {
           powerUps.onPickUp(powerUp[i]);
+          let velMult = ((tech.recoilReduction || 0) > 0 ? 0.5 ** tech.recoilReduction : 1); //dynamical billiards reduces powerUp pickup recoil
           Matter.Body.setVelocity(player, { //player knock back, after grabbing power up
-            x: player.velocity.x + powerUp[i].velocity.x / player.mass * 4 * powerUp[i].mass,
-            y: player.velocity.y + powerUp[i].velocity.y / player.mass * 4 * powerUp[i].mass
+            x: player.velocity.x + powerUp[i].velocity.x / player.mass * 4 * powerUp[i].mass * velMult,
+            y: player.velocity.y + powerUp[i].velocity.y / player.mass * 4 * powerUp[i].mass * velMult
           });
           powerUp[i].effect();
           Matter.Composite.remove(engine.world, powerUp[i]);
@@ -4822,28 +4824,6 @@ const m = {
             this.fieldDrawRadius = 0
           }
           m.drawRegenEnergy("rgba(0,0,0,0.2)")
-
-
-          // if (tech.isHealAttract) {
-          //     for (let i = 0; i < powerUp.length; i++) {
-          //         if (powerUp[i].name === "heal") {
-          //             //&& Vector.magnitudeSquared(Vector.sub(powerUp[i].position, m.pos)) < 500000
-          //             let attract = Vector.mult(Vector.normalise(Vector.sub(m.pos, powerUp[i].position)), 0.01 * powerUp[i].mass)
-          //             powerUp[i].force.x += attract.x;
-          //             powerUp[i].force.y += attract.y - powerUp[i].mass * simulation.g; //negate gravity
-          //             Matter.Body.setVelocity(powerUp[i], Vector.mult(powerUp[i].velocity, 0.7));
-          //         }
-          //     }
-          // }
-
-
-          // powerUp[i].force.x += 0.05 * (dxP / Math.sqrt(dist2)) * powerUp[i].mass;
-          // powerUp[i].force.y += 0.05 * (dyP / Math.sqrt(dist2)) * powerUp[i].mass - powerUp[i].mass * simulation.g; //negate gravity
-          // //extra friction
-          // Matter.Body.setVelocity(powerUp[i], {
-          //     x: powerUp[i].velocity.x * 0.11,
-          //     y: powerUp[i].velocity.y * 0.11
-          // });
 
         }
       }
