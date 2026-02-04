@@ -11743,13 +11743,15 @@ const communityLevels = {
             ctx.stroke();
         };
         let checkVid = () => {
-            if (simulation.paused && !videoContainer.paused) {
-                videoContainer.paused = true;
-                video.pause();
-            } else if (!simulation.paused && videoContainer.paused) {
-                videoContainer.paused = false;
-                video.play();
-            }
+            try {
+                if (simulation.paused && !videoContainer.paused) {
+                    videoContainer.paused = true;
+                    video.pause();
+                } else if (!simulation.paused && videoContainer.paused) {
+                    videoContainer.paused = false;
+                    video.play();
+                }
+            } catch (e) {}
             requestAnimationFrame(checkVid);
         }
         checkVid();
@@ -11757,11 +11759,13 @@ const communityLevels = {
             name: "vid",
             do() {
                 if (level.levels[level.onLevel] !== "crimsonTowers") simulation.removeEphemera(this.name);
-                if (mediaSource && !isSus) {
-                    ctx.drawImage(videoContainer.video, -1600, -15000, 3200, 1800);
-                } else if (mediaSource) {
-                    ctx.drawImage(videoContainer.video, -1920 / 2, -15000, 1920, 1080);
-                }
+                try {
+                    if (mediaSource && !isSus) {
+                        ctx.drawImage(videoContainer.video, -1600, -15000, 3200, 1800);
+                    } else if (mediaSource) {
+                        ctx.drawImage(videoContainer.video, -1920 / 2, -15000, 1920, 1080);
+                    }
+                } catch (e) {}
             }
         });
         level.customTopLayer = () => {

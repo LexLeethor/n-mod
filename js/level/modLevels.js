@@ -11,6 +11,7 @@ const modLevels = {
         level.setPosToSpawn(0, -50); //normal spawn
         level.exit.x = 1500;
         level.exit.y = -1875;
+        simulation.fallHeight = 1500
         spawn.mapRect(level.enter.x, level.enter.y + 20, 100, 20); //bump for level entrance
         spawn.mapRect(level.exit.x, level.exit.y + 20, 100, 20); //bump for level exit
         level.defaultZoom = 1800
@@ -105,6 +106,7 @@ const modLevels = {
         level.setPosToSpawn(0, -50); //normal spawn
         level.exit.x = 1500;
         level.exit.y = -1875;
+        simulation.fallHeight = 1500
         spawn.mapRect(level.enter.x, level.enter.y + 20, 100, 20); //bump for level entrance
         spawn.mapRect(level.exit.x, level.exit.y + 20, 100, 20); //bump for level exit
         level.defaultZoom = 1800
