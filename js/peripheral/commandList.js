@@ -163,7 +163,7 @@ const cmdList = {
         if (what === "tech") {
           if (cmdConsole.params.length > 1) {
             qnty = Math.max(1, parseInt(eval(cmdConsole.params[2]) || 0))
-            for (let i = 0; i < qnty) tech.giveTech(cmdConsole.params[1])
+            for (let i = 0; i < qnty; i++) tech.giveTech(cmdConsole.params[1].replaceAll("_", " "))
           } else {
             throw new ArgumentError(`<strong class='color-var'>give</strong> can have no less than two parameters for this case`)
           }
