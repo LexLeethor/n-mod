@@ -10448,6 +10448,7 @@ const b = {
         });
 
         Composite.add(engine.world, spear);
+        if (tech.isSounds) audioPlayer.requestSound("SpearUse")
         Matter.Body.setAngle(spear, -m.angle - Math.PI / 2);
         Matter.Body.setPosition(spear, {
           x: x,
