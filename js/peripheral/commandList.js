@@ -167,7 +167,7 @@ const cmdList = {
           } else {
             throw new ArgumentError(`<strong class='color-var'>give</strong> can have no less than two parameters for this case`)
           }
-        } else if (cmdConsole.params.length < 2) {
+        } else if (cmdConsole.params.length < 3) {
           qnty = Math.max(1, parseInt(eval(cmdConsole.params[1]) || 0))
           switch (what) {
             case "ammo":
