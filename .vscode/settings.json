@@ -64,4 +64,5 @@
     ],
     "vsicons.dontShowNewVersionMessage": true,
     "git.confirmSync": false,
+    "files.saveConflictResolution": "overwriteFileOnDisk",
 }

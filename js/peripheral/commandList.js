@@ -189,6 +189,8 @@ const cmdList = {
         } else {
           throw new ArgumentError(`<strong class='color-var'>give</strong> can have no more than two parameters for this case`)
         }
-      }
+      },
+      description: `gives the player ammo, research, coupling, or tech
+      <br><strong>SYNTAX:</strong> /give <em>&lt;what (ammo|coupling|research|tech)&gt; {&lt;name (if tech)&gt; | [quantity (if not tech)]} [quantity (if tech)]</em>`
     }
   } //will expand the list
