@@ -9469,7 +9469,7 @@ const spawn = {
       Matter.Body.setVelocity(this, Vector.mult(this.velocity, -0.9)) //bounce off player
     };
     me.do = function () {
-      if (this.seePlayer.recall) this.healthBar2()
+      if (this.seePlayer.recall) this.healthBar3()
       if (!(simulation.cycle % this.seePlayerFreq)) { // this.seePlayerCheck();  from mobs
         if (
           this.distanceToPlayer2() < this.seeAtDistance2 &&

@@ -300,7 +300,7 @@ const tech = {
       (m.fieldMode === 4 && simulation.molecularMode === 1) || tech.missileBotCount > 0 ||
       tech.boomBotCount > 0 || tech.isIncendiary || tech.isPulseLaser || tech.isTokamak ||
       (tech.haveGunCheck("grenades") && !tech.isNeutronBomb) || tech.isExplodeSnipe ||
-      tech.isFoamExplode || tech.isExplodeContact
+      tech.isFoamExplode || tech.isExplodeContact || tech.isNailCrit
   },
   damageAdjustments() {
     let dmg = m.damageDone * m.fieldDamage * powerUps.difficulty.damageDone
@@ -7613,7 +7613,7 @@ const tech = {
       frequency: 1,
       frequencyDefault: 1,
       allowed() {
-        return !tech.isImmuneExplosion && tech.explosiveRadius === 1 && !tech.isSmallExplosion &&
+        return !tech.isImmuneExplosion && !tech.isSmallExplosion &&
           !tech.isBlockExplode && !tech.fragments &&
           (tech.haveGunCheck("missiles") ||
             tech.missileBotCount ||
@@ -7621,7 +7621,7 @@ const tech = {
             (m.fieldMode === 4 && simulation.molecularMode === 1) || tech.isBoomBotUpgrade || tech.isTokamak ||
             tech.isExplodeSnipe)
       },
-      requires: "an explosive damage source, not ammonium nitrate, nitroglycerin, fragmentation",
+      requires: "an explosive damage source, not nitroglycerin, fragmentation",
       effect() {
         tech.isExplodeRadio = true; //iridium-192
       },

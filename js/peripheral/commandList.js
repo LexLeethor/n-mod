@@ -172,7 +172,8 @@ const cmdList = {
           if (cmdConsole.params.length < 3) {
             switch (what) {
               case "ammo":
-                let increaseTarget = (b.guns[b.activeGun].durability ? "durability" : "ammo")
+                let test = [null, Infinity, -Infinity, undefined, ""]
+                let increaseTarget = (test.includes(b.guns[b.activeGun].durability) ? "ammo" : "durability")
                 if (b.inventory.length > 0 && b.guns[b.activeGun][increaseTarget] !== Infinity) {
                   b.guns[b.activeGun][increaseTarget] += qnty
                 }

@@ -1,5 +1,4 @@
 **************************************************** TODO **********************************************
-•Add bossbar for boundaryBoss
 •Add more commands to chat menu
 •Fix HTML generation for warp menu background images
 
@@ -8,7 +7,7 @@
 •More images in warp menu (Input needed from community)
 
 ************************************************* POSTPONED ********************************************
-•Modded bullets integration (i.e. as part of b instead of ephemera)
+•Modded bullets integration (i.e. declared as part of b instead of pushed to ephemera)
 
 *********************************************** NOT PLANNED ********************************************
 •Fixing Genisis (arena boss) immunity

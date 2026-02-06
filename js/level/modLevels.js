@@ -1006,6 +1006,7 @@ const modLevels = {
 
             me.do = function () {
                 this.foundPlayer();
+                this.healthBar4();
                 this.checkStatus();
                 this.fill = `hsl(${(simulation.cycle * 3) % 360} 100% 50%)`
                 if (!this.damageReduction) {
