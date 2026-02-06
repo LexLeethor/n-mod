@@ -10477,7 +10477,7 @@ const tech = {
       name: "arc discharge",
       descriptionFunction() {
         return `spear <strong style="color: rgb(220, 20, 220);">lightning</strong> may strike nearby mobs
-                	<br>increases <strong>probability</strong> and <strong style="color: rgb(220, 20, 220);">energy</strong> cost`
+                	<br>increases <strong>probability</strong> and <strong class="color-f">energy</strong> cost`
       },
       isGunTech: true,
       maxCount: 9,
@@ -10512,8 +10512,7 @@ const tech = {
       },
       requires: "spear, dry lightning",
       effect() {
-        tech.spearRadioactive = true;
-        simulation.ephemera.push({
+        if (!tech.spearRadioactive) simulation.ephemera.push({
           name: "spearRadioactive",
           radius: 0,
           maxRadius: null,
@@ -10766,6 +10765,7 @@ const tech = {
             }
           },
         })
+        tech.spearRadioactive = true;
       },
       remove() {
         tech.spearRadioactive = false;
@@ -10788,8 +10788,7 @@ const tech = {
       },
       requires: "spear, not mass energy or dry lightning",
       effect() {
-        tech.spearEye = true;
-        simulation.ephemera.push({
+        if (!tech.spearEye) simulation.ephemera.push({
           name: "eyeSpear",
           eyeCount: undefined,
           do() {
@@ -10851,6 +10850,7 @@ const tech = {
             }
           }
         })
+        tech.spearEye = true;
       },
       remove() {
         tech.spearEye = false;

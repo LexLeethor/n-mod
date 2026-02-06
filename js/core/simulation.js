@@ -453,6 +453,8 @@ openChatMenu() {
   try {
     cmdConsole.cmdIdx = 0
     document.body.style.cursor = "auto";
+    cmdConsole.oldPlayer.pos = player.position
+    cmdConsole.oldPlayer.vel = player.velocity
     simulation.isChatMenuOpen = true //block keypresses while player is using chat
     //simulation.lastTextLog = document.getElementById("text-log").innerHTML
     //simulation.lastLogTime = Infinity //don't auto-close chat
@@ -479,6 +481,8 @@ closeChatWindow() {
     document.getElementById("chat-window").style.display = "none";
     simulation.isChatMenuOpen = false
     document.body.style.cursor = "none"
+    Matter.Body.setPosition(player, cmdConsole.oldPlayer.pos.x, cmdConsole.oldPlayer.pos.y)
+    Matter.Body.setVelocity(player, cmdConsole.oldPlayer.vel.x, cmdConsole.oldPlayer.vel.y)
   } catch (e) {
     window.alert(e)
   }

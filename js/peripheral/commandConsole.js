@@ -11,6 +11,10 @@ const cmdConsole = {
   params: [], //parameters for commands
   cmdIDX: 1,
   cachedCmd: "",
+  oldPlayer: {
+    pos: { x: 0, y: 0},
+    vel: { x: 0, y: 0}
+  },
   requestCmd(string) {
     simulation.closeChatWindow();
     if (string.replace(/\s/g, "") != "") {
