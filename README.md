@@ -10,5 +10,11 @@ It includes portions of the following games and mods:
   <li><a href="https://github.com/3xionDev/n-gon-upgraded">n-upgraded by 3xionDev</a></li>
   <li>maps from <a href="https://coaldeficit.github.io/c-gon">c-gon by coalDeficit</a></li>
 </ul>
-<br>
+The following libraries are used:
+<ul>
+  <li><a href='https://github.com/liabru/matter-js'>Matter</a> by <a href="https://github.com/liabru">Liabru</a></li>
+  <li> <a href='https://github.com/goldfire/howler.js/blob/master/dist/howler.js'>Howler</a> by <a href="https://github.com/goldfire">James Simpson</a></li>
+</ul>
+Most of the sounds used are from <a href="https://minecraft.wiki/">Minecraft</a> and <a href="https://minecraft.wiki/w/Dungeons:Wiki">Minecraft Dungeons</a>
+<br><br>
 Feel free to <a href="https://github.com/R3d5t0n3GUY/n-mod/issues/new">report bugs</a> or <a href="https://github.com/R3d5t0n3GUY/n-mod/discussions/new?category=ideas">share ideas!</a>
