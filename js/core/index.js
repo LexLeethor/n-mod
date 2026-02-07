@@ -21,20 +21,18 @@ Math.hash = s => {
 
 // document.getElementById("seed").placeholder = Math.initialSeed = Math.floor(Date.now() % 100000) //random every time:  just the time in milliseconds UTC
 
-window.addEventListener('error', error => {
-  //if (false) {
-  //console.clear();
-  //console.error(error);
+window.addEventListener('error', event => {
+  let Error = event.error
   try {
-    let isBrowserSupport = (error.filename !== "") //for some stupid reason, filename is a non-standard error property exclusive to FireFox
-    console.warn(`${error.name || "Error"} in ${error.filename || 'a source file'}: ${error.message}`)
+    let isBrowserSupport = (Error.filename !== "") //for some stupid reason, filename is a non-standard error property exclusive to FireFox
+    console.warn(`${Error.name || "Error"} in ${Error.filename || 'a source file'}: ${Error.message}`)
     // simulation.inGameConsole(`<strong style='color:red;'>ERROR:</strong> ${error.message}  <u>${error.filename}:${error.lineno}</u>`)
     simulation.lastLogTime = 0 //prevent spamming by clearing console
     let errorMsg = null
     if (isBrowserSupport) {
-      errorMsg = (error.stack && error.stack.replace(/\n/g, "<br>")) || (error.message + ` <u>${error.filename}:${error.lineno}</u>`)
+      errorMsg = (Error.stack && Error.stack.replace(/\n/g, "<br>")) || (Error.message + ` <u>${Error.filename}:${Error.lineno}</u>`)
     } else {
-      errorMsg = `${error.name}. <u>:${error.message}</u>`
+      errorMsg = `${Error.name}. <u>:${Error.message}</u>`
       /*errorMsg = `Uncaught Error. <u>:Full error information is not available
     <br>due to browser incompatibility with</u> <a href="lib/warning.html" target="_blank">non-standard properties</a>`*/
     }
