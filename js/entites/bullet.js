@@ -2051,7 +2051,7 @@ const b = {
           // }
           //recoil on catching
           const momentum = Vector.mult(Vector.sub(this.velocity, player.velocity), (m.crouch ? 0.0001 : 0.0002))
-          layer.force.x += momentum.x
+          player.force.x += momentum.x
           player.force.y += momentum.y
           // refund ammo
           if (isReturnAmmo) {
