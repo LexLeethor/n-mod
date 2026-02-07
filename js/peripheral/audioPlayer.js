@@ -70,6 +70,12 @@ const files = [
     src: null, /* ["SFX/Spear/SpearHit1.ogg", "SFX/Spear/SpearHit2.ogg", "SFX/Spear/SpearHit3.ogg"], */
     playCDcycle: 0,
     loadAttempt: 0
+  },
+  {
+    name: "Freeze",
+    src: null, /* ["SFX/Freezes/Freeze1.ogg", "SFX/Freezes/Freeze2.ogg", "SFX/Freezes/Freeze3.ogg"] */
+    playCDcycle: 0,
+    loadAttempt: 0
   }
 ];
 const today = new Date(), currentMonth = today.getMonth(), currentDay = today.getDate();
@@ -126,6 +132,8 @@ const audioPlayer = {
               } else if (name === "nailGun") {
                 listItem.src = `SFX/Nail Gun/nailGun${Math.ceil(Math.random() * 3)}.ogg`
                 volume *= 0.5
+              } else if (name === 'Freeze') {
+                listItem.src = `SFX/Freezes/Freeze${Math.ceil(Math.random() * 3)}.ogg`
               } else if (name === 'Teleport') {
                 listItem.src = `SFX/Teleports/Teleport${Math.ceil(Math.random() * 2)}.mp3`
               }
