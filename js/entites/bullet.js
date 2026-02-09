@@ -9671,7 +9671,12 @@ const b = {
           this.defaultAmmoPack = Infinity;
         }
         this.durability = Math.max(0, Math.min(this.durability, this.maxDurability));
-        if (b.activeGun !== null && input.fire && (tech.isEnergyHealth ? m.energy >= 0.11 : m.health >= 0.11) && this.durability > 0) {
+        let drain = 0.1;
+        if (tech.isRadioScythe) {
+          drain *= 1.5;
+        }
+        if (b.activeGun !== null && input.fire && ((tech.durabilityScythe && this.durability > 0) ||
+        ((tech.isEnergyHealth ? m.energy : m.health) >= (drain + 0.01)))) {
           if (!this.scythe && b.guns[b.activeGun].name === 'scythe') {
             this.angle = m.angle;
             if (tech.durabilityScythe) {
@@ -9687,10 +9692,6 @@ const b = {
             }
 
             if (!tech.isAmmoScythe && !b.guns[b.activeGun].ammo == 0 && !tech.durabilityScythe) {
-              let drain = 0.1;
-              if (tech.isRadioScythe) {
-                drain *= 1.5;
-              }
               if (tech.isEnergyHealth) {
                 m.energy -= drain;
                 if (tech.isPhaseScythe) {
