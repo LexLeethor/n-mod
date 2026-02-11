@@ -40,7 +40,7 @@ window.addEventListener('error', event => {
       errorMessage = (errorObj.stack && errorObj.stack.replace(/\n/g, "<br>")) || 
       (errMsg + ` <u>${errorObj.filename}:${errorObj.lineno}</u>`)
     } else {
-      errorMessage = `${errName}. <u>:${errMsg}</u>`
+      errorMessage = `${errName}. <u>:${errMsg == null ? "Check the browser console for info." : errMsg}</u>`
       /*errorMsg = `Uncaught Error. <u>:Full error information is not available
     <br>due to browser incompatibility with</u> <a href="lib/warning.html" target="_blank">non-standard properties</a>`*/
     }
@@ -48,7 +48,7 @@ window.addEventListener('error', event => {
     simulation.inGameConsole(`<strong style='color:red;'>ERROR:</strong> ${errorMessage}`, 480); //show for 8 seconds
   } catch (err) {
     console.error("Logging Error: ", err)
-  } finally { canvas.width = canvas.width }
+  } //finally { canvas.width = canvas.width }
 });
 
 document.getElementById("seed").placeholder = Math.initialSeed = String(Math.floor(Date.now() % 100000))
