@@ -481,8 +481,19 @@ closeChatWindow() {
     document.getElementById("chat-window").style.display = "none";
     simulation.isChatMenuOpen = false
     document.body.style.cursor = "none"
-    Matter.Body.setPosition(player, cmdConsole.oldPlayer.pos.x, cmdConsole.oldPlayer.pos.y)
-    Matter.Body.setVelocity(player, cmdConsole.oldPlayer.vel.x, cmdConsole.oldPlayer.vel.y)
+    let isNum = (what) => {
+      if (typeof(what) === 'number') {
+        return (!isNaN(what) && isFinite(what))
+      } else {
+        return false
+      }
+    }
+    let where = {
+      x: (isNum(cmdConsole.oldPlayer.pos.x) ? cmdConsole.oldPlayer.pos.x : isNum(level.enter.x) ? level.enter.x : 0),
+      y: (isNum(cmdConsole.oldPlayer.pos.y) ? cmdConsole.oldPlayer.pos.y : isNum(level.enter.y) ? level.enter.y - 20 : -20)
+    }
+    Matter.Body.setPosition(player, (where.x|| 0), (where.y || 0))
+    Matter.Body.setVelocity(player, (cmdConsole.oldPlayer.vel.x || 0), (cmdConsole.oldPlayer.vel.y || 0))
   } catch (e) {
     window.alert(e)
   }
@@ -1083,7 +1094,7 @@ startGame(isBuildRun = false, isTrainingRun = false) {
           }
         if (tech.relayIce && tech.isFlipFlopOn) {
           for (let j = 0; j < tech.relayIce; j++) {
-            m.fieldUpgrades[4].endoThermic(0.6)
+            if (tech.isEndothermic) m.fieldUpgrades[4].endoThermic(0.6)
             for (let i = 0, len = 3 + Math.ceil(9 * Math.random()); i < len; i++) b.iceIX(2)
           }
         }

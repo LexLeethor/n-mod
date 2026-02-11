@@ -15709,8 +15709,22 @@ const tech = {
       frequencyDefault: 2,
       isLore: true,
       // isExperimentHide: true,
-      allowed() { return !build.isExperimentSelection },
-      requires: "NOT EXPERIMENT MODE",
+      allowed() {
+        let gameCompleted = false
+        try {
+          if (localSettings.difficultyCompleted) {
+            gameCompleted = localSettings.difficultyCompleted.some(diff => diff === true)
+          } else { //if localSettings.difficultyCompleted is not defined, ignore it
+            gameCompleted = true
+            //throw new TypeError("Cannot read properties of null (reading '.difficultyCompleted')")
+          }
+        } catch (e) { //if localSettings is not defined, ignore it
+          console.warn(e)
+          gameCompleted = true
+        }
+        return !build.isExperimentSelection && true
+      },
+      requires: "completed the game at least once, NOT EXPERIMENT MODE",
       effect() {
         if (localSettings.loreCount > lore.conversation.length - 1) { //reward for people done with lore chapters (or on the final chapter)
           for (let i = mob.length - 1; i > -1; i--) { //replace mobs with starters
