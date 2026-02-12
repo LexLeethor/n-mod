@@ -872,7 +872,11 @@ gravity() {
 },
 firstRun: true,
 splashReturn() {
-  fileStatusDiv.innerHTML = ""
+  try {
+    fileStatusDiv.innerHTML = ""
+  } catch (err) {
+    document.getElementById("file-status-div").innerHTML = ""
+  }
   document.getElementById("previous-seed").innerHTML = `previous seed: <span style="font-size:80%;">${Math.initialSeed}</span><br>`
   document.getElementById("seed").value = Math.initialSeed = Math.seed //randomize initial seed
 
