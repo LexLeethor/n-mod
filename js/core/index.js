@@ -1367,7 +1367,26 @@ const input = {
       return text.replace('Key', '').replace('Digit', '')
     }
     if (!input.key.fire) input.key.fire = "KeyF"
-    document.getElementById("key-fire").innerHTML = cleanText(input.key.fire)
+    let elementIds = ["key-fire", "key-field", "key-up", "key-down", "key-left", "key-right",
+      "key-pause", "key-next-gun", "key-previous-gun", "key-testing", "splash-up", "splash-down",
+      "splash-left", "splash-right", "splash-next-gun", "splash-previous-gun"], targetKeys = [
+        "fire", "field", "up", "down", "left", "right", "pause", "nextGun", "previousGun", "testing",
+        "up", "down", "left", "right", "nextGun", "previousGun"
+      ]
+    elementIds.forEach((id, i) => {
+      try {
+        if (id.substring(0, 3) == "key") {
+          document.getElementById(id).innerHTML = cleanText(input.key[targetKeys[i]])
+        } else {
+          document.getElementById(id).innerHTML = cleanText(input.key[targetKeys[i]])[0]
+        }
+      } catch (err) {
+        console.log("")
+        console.log(`Issue #${i};`)
+        console.warn(err)
+      }
+    })
+    /* document.getElementById("key-fire").innerHTML = cleanText(input.key.fire)
     document.getElementById("key-field").innerHTML = cleanText(input.key.field)
     document.getElementById("key-up").innerHTML = cleanText(input.key.up)
     document.getElementById("key-down").innerHTML = cleanText(input.key.down)
@@ -1383,7 +1402,7 @@ const input = {
     document.getElementById("splash-left").innerHTML = cleanText(input.key.left)[0]
     document.getElementById("splash-right").innerHTML = cleanText(input.key.right)[0]
     document.getElementById("splash-next-gun").innerHTML = cleanText(input.key.nextGun)[0]
-    document.getElementById("splash-previous-gun").innerHTML = cleanText(input.key.previousGun)[0]
+    document.getElementById("splash-previous-gun").innerHTML = cleanText(input.key.previousGun)[0] */
 
     localSettings.key = input.key
     if (localSettings.isAllowed) localStorage.setItem("localSettings", JSON.stringify(localSettings)); //update local storage

@@ -48,7 +48,11 @@ setTimeout(() => {
     });
 
     document.getElementById("erase-save").addEventListener("click", () => {
-        fileStatusDiv.innerHTML = ""
+        try {
+          fileStatusDiv.innerHTML = ""
+        } catch (err) {
+          document.getElementById("file-status-div").innerHTML = ""
+        }
         confirmWipeDiv.style.visibility = "visible";
         localSaveDiv.style.visibility = "hidden";
     });
@@ -78,4 +82,4 @@ setTimeout(() => {
             setTimeout(() =>{window.alert(errorMsg)}, 100);
         }
     });
-}, 150)
+}, 1000)
