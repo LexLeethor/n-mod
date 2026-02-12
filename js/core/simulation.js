@@ -472,6 +472,7 @@ openChatMenu() {
       }
     }
     window.addEventListener("keyup", focusChatBox);
+    Matter.Body.setVelocity(player, {x: 0, y: 0})
   } catch (err) {
     window.alert(err)
   }
@@ -496,7 +497,7 @@ closeChatWindow() {
       y: (isNum(cmdConsole.oldPlayer.pos.y) ? cmdConsole.oldPlayer.pos.y : isNum(level.enter.y) ? level.enter.y - 20 : -20)
     }
     Matter.Body.setPosition(player, {
-      x: (where.x|| 0), 
+      x: (where.x || 0), 
       y: (where.y || 0)
     })
     Matter.Body.setVelocity(player, {
