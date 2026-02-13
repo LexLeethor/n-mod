@@ -173,7 +173,7 @@ try {
         }
         setTimeout(() => {
           document.body.append(tag);
-        }, 50)
+        }, 100)
       } else {
         setTimeout(() => {
           let validities = Object.values(fileLoads)
@@ -196,7 +196,7 @@ try {
               document.body.innerHTML = text
               document.title = "n-mod: FAULTY FILES DETECTED"
               favIcon.href = 'img/Error.png'
-            }, 10 * errors.length + 30);
+            }, 30 * errors.length + 30);
           } else {
             console.clear();
             fileLoads.onLoadEnd();
@@ -226,7 +226,7 @@ try {
               Object.freeze(defaultGameVars);
             }, 100);
           }
-        }, 300 * Object.values(fileLoads).length + 100); //ensure .js files are loaded BEFORE attempting error check
+        }, 400 * Object.values(fileLoads).length + 100); //ensure .js files are loaded BEFORE attempting error check
       }
     }
     fileLoads.isFileTesterJS = true

@@ -38,7 +38,7 @@ Press Escape to close"></textarea>
         <input type="button" id="execute-command" value="Enter">
         <input type="button" id="close-chat" value="Exit"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" id="jump-to" value="Jump to...">
-        <input type="number" id="history" min="0" max="1" placeholder="0 (where you left off)" style="width:200px">
+        <input type="number" id="history" min="-1" max="1" placeholder="0 (where you left off)" style="width:200px">
     </div>
     <div id="fade-out"></div>
     <div id="health-bg"></div>
@@ -109,15 +109,13 @@ Press Escape to close"></textarea>
                         style="width: 120px;">
                     <br><span id="previous-seed" style="color:#bbb"></span>
                     <br>
-                    Save File:<br>
+                    Save File: <div id='file-status-div'></div>
                     <div id="localSave-div">
                         <input type="file" id="file-import" accept=".json" hidden>
                         <input type="button" id="load-file" value="Import" title="Click to use your save file">
                         <input type="button" id="save-file" value="Export" title="Click to download your save file">
-                        <input type="button" id="erase-save" value="Wipe" style="color:red;"
-                            title="This cannot be undone!">
+                        <input type="button" id="erase-save" value="Wipe" style="color:red;" title="This cannot be undone!">
                     </div>
-                    <div id="file-status-div" style="min-height: 1.25em;"></div>
                     <div id="confirm-wipe-div" style="visibility: hidden;">
                         <strong>This action is <span style='color:red'>IRREVERSIBLE!</span></strong>
                         <br>
@@ -238,7 +236,7 @@ Press Escape to close"></textarea>
                             <option class="choice" value="https://github.com/landgreen/n-gon">Original Game Repository
                             </option>
                             <option class="choice" value="https://github.com/c-rxxp-y/n-gon-treasury/">The Lost Treasury
-                            <option class="choice" value="https://cornbread2100.com/n-gon-loader">Every
+                            </option class="choice" value="https://cornbread2100.com/n-gon-loader">Every
                             Version, One website</option>
                         </select>
                         <br><label for="links-select" title="community links">community links:</label>
@@ -321,7 +319,7 @@ Press Escape to close"></textarea>
     </svg>
     <script>
         const fileLoader = document.createElement("script")
-        fileLoader.src = "./js/loading/fileTester.js"
+        fileLoader.src = "js/loading/fileTester.js"
         setTimeout(() => {
             if (!fileLoads.isFileTesterJS) {
                 document.body.style.backgroundColor = "white";
@@ -332,6 +330,75 @@ Press Escape to close"></textarea>
             }
         }, 250);
         document.body.appendChild(fileLoader)
+
+        /***** Scramble color-censored here (does NOT work if loaded anywhere else) *****/
+        function scramble(text) {
+          let result = "";
+          for (let i = 0; i < text.length; i++) {
+            result += String.fromCharCode(Math.floor(Math.random() * 94) + 33);
+          }
+          return result;
+        }
+
+        function initColorCensored(el) {
+          if (el.dataset.init == 1) {
+            return;
+          } else {
+            el.dataset.init = "1";
+            const trueText = el.textContent;
+            el.dataset.true = trueText
+            // 🔒 FORCE LAYOUT HACK
+            el.textContent = "\u00A0".repeat(trueText.length);
+            el.addEventListener("copy", e => {
+              e.preventDefault();
+              e.clipboardData.setData("text/plain", trueText);
+            });
+            function animate() {
+              el.setAttribute("data-fake", scramble(trueText));
+            }
+            animate();
+            setInterval(animate, 50);
+          }
+        }
+
+        function scan(root = document) {
+          root.querySelectorAll(".color-censored").forEach(initColorCensored);
+        }
+        new MutationObserver(muts => {
+          muts.forEach(m =>
+            m.addedNodes.forEach(n => n.nodeType === 1 && scan(n))
+          );
+        }).observe(document.body, { childList: true, subtree: true });
+        document.addEventListener("copy", e => {
+        const sel = document.getSelection();
+        if (!sel.rangeCount) {
+          return;
+        } else {
+          let output = "";
+          let handled = false;
+          for (let i = 0; i < sel.rangeCount; i++) {
+            const range = sel.getRangeAt(i);
+
+            // Clone the selected DOM
+            const fragment = range.cloneContents();
+
+            // Replace censored spans inside the fragment
+            fragment.querySelectorAll(".color-censored").forEach(el => {
+            const text = el.dataset.true || "";
+            el.replaceWith(document.createTextNode(text));
+            handled = true;
+            });
+
+            output += fragment.textContent;
+        }
+        if (handled) {
+          e.preventDefault();
+          e.clipboardData.setData("text/plain", output);
+        }
+      }
+    });
+    scan();
+    setInterval(scan, 50);
     </script>
 </body>
 
