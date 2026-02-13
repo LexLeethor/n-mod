@@ -8990,7 +8990,7 @@ const tech = {
       frequencyDefault: 2,
       allowed() {
         return tech.blockDamage > 0.075 || tech.isRailGun || (tech.haveGunCheck("foam") && tech.isFoamPressure) ||
-          tech.spearRadioactive || tech.isTokamak || tech.isPulseLaser || tech.isPlasmaBall
+          (tech.haveGunCheck("spear") && tech.spearRadioactive) || tech.isTokamak || tech.isPulseLaser || tech.isPlasmaBall
       },
       requires: "mass driver, railgun, foam, pressure vessel, pulse, polonium-210, tokamak, plasma ball",
       effect() {
@@ -10502,8 +10502,8 @@ const tech = {
     {
       name: "polonium-210",
       descriptionFunction() {
-        return `gather <strong>polonium-210</strong> into spear
-                	<br>crouching <strong>charges</strong> a ball of polonium and <strong class="color-f">energy</strong>`
+        return `gather <strong class='color-plasma'>polonium-210</strong> into spear
+                	<br>crouching <strong>charges</strong> a ball of <strong class='color-plasma'>plasma</strong> and <strong class="color-f">energy</strong>`
       },
       isGunTech: true,
       isNScytheTech: true,
@@ -11872,11 +11872,12 @@ const tech = {
       name: "plasma jet",
       link: `<a target="_blank" href='https://en.wikipedia.org/wiki/Plasma_(physics)' class="link">plasma jet</a>`,
       descriptionFunction() {
-        if (tech.isPlasmaBall) {
-          return `use ${powerUps.orb.research(1)}<br><strong>1.5x</strong> <strong class='color-plasma'>plasma</strong> <strong>ball</strong> radius`
-        } else {
-          return `use ${powerUps.orb.research(1)}<br><strong>1.5x</strong> <strong class='color-plasma'>plasma</strong> <strong>torch</strong> range`
+        let descpt = `use ${powerUps.orb.research(1)}`
+        if (tech.plasmaBotCount || m.fieldMode === 5 || build.isExperimentSelection) {
+          descpt += `<br><strong>1.5x</strong> <strong class='color-plasma'>plasma</strong> <strong>${tech.isPlasmaBall ? "ball</strong> radius" : "torch</strong> range"}`
         }
+        if (tech.haveGunCheck("spear") && tech.spearRadioactive) descpt += `<br><strong>1.5x</strong> maximum <strong class='color-plasma'>polonium-210</strong> capacity`
+        return descpt
       },
       isFieldTech: true,
       maxCount: 3,
