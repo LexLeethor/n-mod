@@ -354,7 +354,7 @@ Press Escape to close"></textarea>
             const trueText = el.textContent;
             el.dataset.true = trueText
             // 🔒 FORCE LAYOUT HACK
-            el.textContent = "\u00A0".repeat(trueText.length);
+            el.textContent = "\u00A0".repeat(trueText.length * 2);
             el.addEventListener("copy", e => {
               e.preventDefault();
               e.clipboardData.setData("text/plain", trueText);
